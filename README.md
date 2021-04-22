@@ -8,4 +8,4 @@ Pages package contains page classes to locate the element to be uses in test cla
 Kindly import the same project and make sure to update the pom.xml file to download all dependences
 Run the project using testng.xml  
 
-Explanation why I provide this solution: I decided to make a CI/CD test plan to be run at every push the test plan contains 4 suites (Products, Stores, Categories, services) each suite contains number of test cases according to CRUD to check that each end point working correctly after every push
+Explanation why I provide this solution for API Automation: I decided to make a CI/CD test plan to be run at every push the test plan contains 4 suites (Products, Stores, Categories, services) each suite contains number of test cases according to CRUD to check that each end point working correctly after every push
