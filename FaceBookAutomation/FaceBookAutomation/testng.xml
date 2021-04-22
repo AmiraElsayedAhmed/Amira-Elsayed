@@ -1,0 +1,13 @@
+
+<suite name="Regression Suite">
+    <parameter name="browser" value="chrome" />
+    <test name="Regression Test" preserve-order="yes">
+        <classes>
+
+            <class name="tests.LoginFacebook"/>
+
+            <class name="tests.RegisterFacebook"/>
+
+        </classes>
+    </test>
+</suite>
