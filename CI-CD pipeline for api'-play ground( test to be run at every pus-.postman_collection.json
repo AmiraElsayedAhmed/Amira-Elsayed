@@ -1,0 +1,2028 @@
+{
+	"info": {
+		"_postman_id": "864abfcb-a371-4dc4-be3f-f5152e5e5069",
+		"name": "CI/CD pipeline for api'-play ground( test to be run at every pus\"",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products ",
+			"item": [
+				{
+					"name": "Create Product",
+					"item": [
+						{
+							"name": "Create product with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"pm.test(\"Check that product is created\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Check Product Type\", function () {\r",
+											"    pm.expect(jsonData.type).to.eql(\"Air fryer\");\r",
+											"});\r",
+											"pm.globals.set(\"ProductID\", 48530);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Air Fryer Profi Cook\",\r\n  \"type\": \"Air fryer\",\r\n  \"price\": 380.49,\r\n  \"shipping\": 20.99,\r\n  \"upc\": \"12345678901\",\r\n  \"description\": \"Test Data\",\r\n  \"manufacturer\": \"German\",\r\n  \"model\": \"145\",\r\n  \"url\": \"http://www.bestbuy.com/site/sony-es-sxrd-3d-ready-4k-home-theater-projector-black/3041141.p?id=1219086346401&skuId=3041141&cmp=RMXCC\",\r\n  \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/3041/3041141_sa.jpg\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product with invalid data\"Less than min length\"",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"type\": \"\",\r\n  \"price\": 0,\r\n  \"shipping\":0,\r\n  \"upc\": \"\",\r\n  \"description\": \"\",\r\n  \"manufacturer\": \"\",\r\n  \"model\": \"\",\r\n  \"url\": \"\",\r\n  \"image\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product with invalid data\"more than max length\"",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook Air Fryer Profi Cook\",\r\n  \"type\": \"Air fryer Air fryer Air fryer Air fryer\",\r\n  \"price\": 380.49,\r\n  \"shipping\": 20.99,\r\n  \"upc\": \"12345678901\",\r\n  \"description\": \"Test Data\",\r\n  \"manufacturer\": \"German\",\r\n  \"model\": \"145\",\r\n  \"url\": \"http://www.bestbuy.com/site/sony-es-sxrd-3d-ready-4k-home-theater-projector-black/3041141.p?id=1219086346401&skuId=3041141&cmp=RMXCC\",\r\n  \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/3041/3041141_sa.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product with invalid data \"Check that shipping and price is multiple of 0.01",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Air Fryer Profi Cook\",\r\n  \"type\": \"Air fyer\",\r\n  \"price\": 38.09,\r\n  \"shipping\": 10.03,\r\n  \"upc\": \"12345678901\",\r\n  \"description\": \"Test Data\",\r\n  \"manufacturer\": \"German\",\r\n  \"model\": \"145\",\r\n  \"url\": \"http://www.bestbuy.com/site/sony-es-sxrd-3d-ready-4k-home-theater-projector-black/3041141.p?id=1219086346401&skuId=3041141&cmp=RMXCC\",\r\n  \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/3041/3041141_sa.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create product without enter optional attributies",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"type\": \"\",\r\n  \"price\": 0,\r\n  \"shipping\":0,\r\n  \"upc\": \"\",\r\n  \"description\": \"\",\r\n  \"manufacturer\": \"\",\r\n  \"model\": \"\",\r\n  \"url\": \"\",\r\n  \"image\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Products",
+					"item": [
+						{
+							"name": "Get All products",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/products",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.globals.unset(\"ProductID\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/products/43900",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"43900"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get non existing products ",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/products/12334840",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"12334840"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Highest Priced Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3030/products?$sort[price]=-1",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "$sort[price]",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Name and Description Only",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3030/products?$select[]=name&$select[]=description",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "$select[]",
+											"value": "name"
+										},
+										{
+											"key": "$select[]",
+											"value": "description"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TVs with free shipping and price between $500 and $800",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3030/products?category.name=TVs&price[$gt]=500&price[$lt]=800&shipping[$eq]=0",
+									"host": [
+										"localhost"
+									],
+									"port": "3030",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "category.name",
+											"value": "TVs"
+										},
+										{
+											"key": "price[$gt]",
+											"value": "500"
+										},
+										{
+											"key": "price[$lt]",
+											"value": "800"
+										},
+										{
+											"key": "shipping[$eq]",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Product",
+					"item": [
+						{
+							"name": "Update Product with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that product details updated successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Check value of product name after updated\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{          \r\n            \"name\": \"Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack\",\r\n            \"type\": \"HardGood HardGood HardGood\",\r\n            \"price\": 55.49,\r\n            \"upc\": \"041333424019\",\r\n            \"shipping\": 10,\r\n            \"description\": \"Compatible with select electronic devices; AAA size; DURALOCK Power Preserve technology; 4-pack\",\r\n            \"manufacturer\": \"Duracell\",\r\n            \"model\": \"MN2400B4Z\",\r\n            \"url\": \"http://www.bestbuy.com/site/duracell-aaa-batteries-4-pack/43900.p?id=1051384074145&skuId=43900&cmp=RMXCC\",\r\n            \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/4390/43900_sa.jpg\"\r\n            }"
+								},
+								"url": {
+									"raw": "{{URL}}/products/43900",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"43900"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product with invalid \"Exceed Max Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system will validate max length\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{          \r\n            \"name\": \"Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack) Duracell - AAA Batteries (4-Pack\",\r\n            \"type\": \"HardGood HardGood HardGood HardGood HardGood HardGood HardGood\",\r\n            \"price\": 0.49,\r\n            \"upc\": \"041333424019\",\r\n            \"shipping\": 10,\r\n            \"description\": \"Compatible with select electronic devices; AAA size; DURALOCK Power Preserve technology; 4-pack HardGood HardGood HardGoodHardGood \",\r\n            \"manufacturer\": \"Duracell\",\r\n            \"model\": \"MN2400B4Z\",\r\n            \"url\": \"http://www.bestbuy.com/site/duracell-aaa-batteries-4-pack/43900.p?id=1051384074145&skuId=43900&cmp=RMXCC\",\r\n            \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/4390/43900_sa.jpg\"\r\n            }"
+								},
+								"url": {
+									"raw": "{{URL}}/products/43900",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"43900"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product with invalid \"Less than Min Length\"",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{          \r\n            \"name\": \"\",\r\n            \"type\": \"\",\r\n            \"price\": 55.49,\r\n            \"upc\": \"041333424019\",\r\n            \"shipping\": 10,\r\n            \"description\": \"Compatible with select electronic devices; AAA size; DURALOCK Power Preserve technology; 4-pack\",\r\n            \"manufacturer\": \"Duracell\",\r\n            \"model\": \"MN2400B4Z\",\r\n            \"url\": \"http://www.bestbuy.com/site/duracell-aaa-batteries-4-pack/43900.p?id=1051384074145&skuId=43900&cmp=RMXCC\",\r\n            \"image\": \"http://img.bbystatic.com/BestBuy_US/images/products/4390/43900_sa.jpg\"\r\n            }"
+								},
+								"url": {
+									"raw": "{{URL}}/products/43900",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"43900"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Product",
+					"item": [
+						{
+							"name": "Delete an existing product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/products/346575",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"346575"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete not existing product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"No record found for id '127687'\");\r",
+											"    \r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/products/127687",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"products",
+										"127687"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Stores",
+			"item": [
+				{
+					"name": "Create Stores",
+					"item": [
+						{
+							"name": "Create stores with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"pm.test(\"Check that product is created\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Check Product Type\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(\"Amira Store\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"name\": \"Amira Store\",\r\n            \"type\": \"Mobile Phones\",\r\n            \"address\": \"13513 Ridgedale Dr\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Hopkins\",\r\n            \"state\": \"MN\",\r\n            \"zip\": \"55305\",\r\n            \"lat\": 44.969658,\r\n            \"lng\": -93.449539,\r\n            \"hours\": \"Mon: 10-9; Tue: 10-9; Wed: 10-9; Thurs: 10-9; Fri: 10-9; Sat: 10-9; Sun: 10-8\",\r\n            \"services\":{}\r\n        }"
+								},
+								"url": {
+									"raw": "{{URL}}/stores",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create stores with invalid data\"Less than min length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"type\": \"\",\r\n  \"address\": \"\",\r\n  \"address2\": \"\",\r\n  \"city\": \"\",\r\n  \"state\": \"\",\r\n  \"zip\": \"\",\r\n  \"lat\": 0,\r\n  \"lng\": 0,\r\n  \"hours\": \"\",\r\n  \"services\": {}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/stores",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create stores with invalid data\"more than max length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"name\": \"Amira Store Amira Amira Amira Amira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira\",\r\n            \"type\": \"Mobile Phones Phones Phones Phones Phones Phones PhonesPhonesPhonesPhonesPhones \",\r\n            \"address\": \"13513 Ridgedale Dr\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Hopkins\",\r\n            \"state\": \"MN\",\r\n            \"zip\": \"55305\",\r\n            \"lat\": 44.969658,\r\n            \"lng\": -93.449539,\r\n            \"hours\": \"Mon: 10-9; Tue: 10-9; Wed: 10-9; Thurs: 10-9; Fri: 10-9; Sat: 10-9; Sun: 10-8\",\r\n            \"services\":{}\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/stores",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create stores without enter optional attributies",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that product is created\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"name\": \"Amira Store\",\r\n            \"address\": \"13513 Ridgedale Dr\",\r\n            \"city\": \"Hopkins\",\r\n            \"state\": \"MN\",\r\n            \"zip\": \"55305\"\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/stores",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Stores",
+					"item": [
+						{
+							"name": "Get Stores(Return All stores)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Stores are returned\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/stores",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get stores by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Store returned successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"check id \", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(4);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/stores/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a non existing store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system validates id\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/stores/00",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"00"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Stores",
+					"item": [
+						{
+							"name": "Update store with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that store details updated successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"name\": \"Amira Store 4\",\r\n            \"type\": \"BigBox test\",\r\n            \"address\": \"13513 Ridgedale Dr\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Hopkins\",\r\n            \"state\": \"MN\",\r\n            \"zip\": \"55305\",\r\n            \"lat\": 44.969658,\r\n            \"lng\": -93.449539,\r\n            \"hours\": \"Mon: 10-9; Tue: 10-9; Wed: 10-9; Thurs: 10-9; Fri: 10-9; Sat: 10-9; Sun: 10-8\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/stores/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update store with invalid \"Exceed Max Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system will validate max length\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Amira Store 4 Store Store Store Store Store Store Store Store Store  Store Store StoreStore Store Store Store Store Store Store Store Store Store\",\r\n    \"type\": \"BigBox test BigBox BigBox BigBox BigBox BigBox BigBoxBigBox BigBox BigBox BigBox BigBox BigBox BigBox BigBox BigBox BigBox \",\r\n    \"address\": \"13513 Ridgedale Dr\",\r\n    \"address2\": \"\",\r\n    \"city\": \"Hopkins\",\r\n    \"state\": \"MN\",\r\n    \"zip\": \"55305\",\r\n    \"lat\": 44.969658,\r\n    \"lng\": -93.449539,\r\n    \"hours\": \"Mon: 10-9; Tue: 10-9; Wed: 10-9; Thurs: 10-9; Fri: 10-9; Sat: 10-9; Sun: 10-8\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/stores/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update store with invalid \"Less than Min Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"System validate min length6\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \" \",\r\n  \"type\": \"\",\r\n  \"address\": \"\",\r\n  \"address2\": \"\",\r\n  \"city\": \"\",\r\n  \"state\": \"\",\r\n  \"zip\": \"\",\r\n  \"lat\": 0,\r\n  \"lng\": 0,\r\n  \"hours\": \"\",\r\n  \"services\": {}\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/stores/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Stores",
+					"item": [
+						{
+							"name": "Delete an existing stores",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Store is deleted successfullu\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/stores/6",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete not existing stores",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"store already deleted \", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/stores/6",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"stores",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Create Categories",
+					"item": [
+						{
+							"name": "Create category with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"pm.test(\"Check that Category is created\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Check Category id\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(\"2\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Mobile phones\",\r\n  \"id\": \"2\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create category with invalid data\"Less than min length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"id\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create category with invalid data\"more than max length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \" AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira\",\r\n  \"id\": \"AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Categories",
+					"item": [
+						{
+							"name": "Get Categories(Return All categories)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category are returned\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get stores by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category returned successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"check id \", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(\"abcat0010000\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/categories/abcat0010000",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0010000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a non existing store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system validates id\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/categories/00",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"00"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Categories",
+					"item": [
+						{
+							"name": "Update categories with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that product details updated successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Amira phones\",\r\n  \"id\": \"abcat0010000\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/categories/abcat0010000",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0010000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update categories with invalid \"Exceed Max Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system will validate max length\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Amira  phonesphones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones phones\",\r\n  \"id\": \"abcat0010000\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/categories/abcat0010000",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0010000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update categories with invalid \"Less than Min Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"System validate min length6\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"id\": \"\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/categories/abcat0010000",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0010000"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Categories",
+					"item": [
+						{
+							"name": "Delete an existing category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category is deleted successfullu\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/categories/abcat0020002",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0020002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete not existing categ5ory",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"store already deleted \", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/categories/abcat0010000",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"abcat0010000"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "Create services",
+					"item": [
+						{
+							"name": "Create service with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"pm.test(\"Check that service is created\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Check service id\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(\"Amira service\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Amira service\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create service with invalid data\"Less than min length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create service with invalid data\"more than max length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"System validates on field validation\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n  \"name\": \" AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get services",
+					"item": [
+						{
+							"name": "Get Services(Return All services)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category are returned\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/services",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Services by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category returned successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"check id \", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(\"1\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/services/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a non existing services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system validates id\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/services/23",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"23"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update services",
+					"item": [
+						{
+							"name": "Update services with valid data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that product details updated successfully\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Amira service\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/services/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update services with invalid \"Exceed Max Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check that system will validate max length\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n  \"name\": \" AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira AmiraAmira Amira Amira AmiraAmira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira Amira\"\r\n\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/services/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update services with invalid \"Less than Min Length\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"System validate min length6\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\"\r\n}"
+								},
+								"url": {
+									"raw": "{{URL}}/services/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete services",
+					"item": [
+						{
+							"name": "Delete an existing services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Category is deleted successfullu\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/services/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete not existing services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"store already deleted \", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/services/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"services",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
